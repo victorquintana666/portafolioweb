@@ -1,0 +1,421 @@
+/* ==========================================================================
+   styles.css — Presentación del portafolio
+   Paleta: morado (principal), blanco (secundario), negro (texto/contraste)
+   Convención de nombres: clases en kebab-case con estilo BEM (bloque__elemento--modificador)
+   ========================================================================== */
+
+/* ---------- 1. Variables ---------- */
+:root {
+  /* Colores */
+  --color-purple-900: #3b0f7a;
+  --color-purple-700: #5b21b6;   /* principal */
+  --color-purple-600: #6d28d9;
+  --color-purple-200: #ddd0f7;
+  --color-purple-100: #f1eafd;
+  --color-purple-50:  #f9f6ff;
+  --color-white: #ffffff;        /* secundario */
+  --color-black: #111111;        /* texto y contraste */
+  --color-text-soft: #3d3d46;
+
+  /* Tipografía sans-serif (RNF-005) y tamaño legible (RNF-006) */
+  --font-family: "Segoe UI", system-ui, -apple-system, Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-size-base: 1.0625rem;   /* 17px */
+
+  /* Animaciones con duración definida (RNF-022) */
+  --animation-duration: 350ms;
+  --transition-duration: 200ms;
+
+  /* Layout */
+  --container-width: 1100px;
+  --radius: 14px;
+  --shadow: 0 6px 20px rgba(59, 15, 122, 0.12);
+  --header-height: 4rem;
+}
+
+/* ---------- 2. Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.65;
+  color: var(--color-black);
+  background: var(--color-white);
+  -webkit-text-size-adjust: 100%;
+}
+
+h1, h2, h3 { line-height: 1.25; margin: 0 0 0.6em; }
+h1 { font-size: clamp(2rem, 5vw, 3.25rem); }
+h2 { font-size: clamp(1.5rem, 3.5vw, 2rem); color: var(--color-purple-700); }
+h3 { font-size: 1.2rem; }
+p  { margin: 0 0 1em; }
+ul { margin: 0; padding: 0; list-style: none; }
+
+img { display: block; max-width: 100%; height: auto; }
+
+/* Enlaces: subrayados y en morado para distinguirlos del texto (RF-056) */
+a {
+  color: var(--color-purple-700);
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  transition: color var(--transition-duration) ease, background-color var(--transition-duration) ease;
+}
+a:hover { color: var(--color-purple-900); text-decoration-thickness: 2px; }
+
+:focus-visible {
+  outline: 3px solid var(--color-purple-600);
+  outline-offset: 3px;
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 clamp(1rem, 4vw, 2rem);
+}
+
+/* ---------- 3. Encabezado y navegación (RF-001 a RF-010, RNF-009) ---------- */
+.site-header {
+  position: sticky;            /* permanece visible al desplazarse (RF-008) */
+  top: 0;
+  z-index: 50;
+  background: var(--color-purple-700);
+  color: var(--color-white);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.site-header__inner {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.5rem 1.5rem;
+  min-height: var(--header-height);
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+}
+
+.site-header__brand {
+  color: var(--color-white);
+  font-weight: 700;
+  font-size: 1.15rem;
+  text-decoration: none;
+}
+.site-header__brand:hover { color: var(--color-purple-200); }
+
+.main-nav__list { display: flex; flex-wrap: wrap; gap: 0.35rem; }
+
+.main-nav__link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  border-radius: 999px;
+  color: var(--color-white);
+  font-weight: 600;
+  text-decoration: none;
+  border: 2px solid transparent;
+}
+.main-nav__link:hover {
+  background: rgba(255, 255, 255, 0.18);
+  color: var(--color-white);
+}
+/* Indicador de la sección actual (RF-009) */
+.main-nav__link[aria-current="page"] {
+  background: var(--color-white);
+  color: var(--color-purple-700);
+}
+.site-header :focus-visible { outline-color: var(--color-white); }
+
+/* ---------- 4. Vistas y transición entre secciones (RF-010, RF-055, RNF-021) ---------- */
+.site-main { min-height: 70vh; }
+
+.view { padding: clamp(2rem, 6vw, 4rem) 0; outline: none; }
+.view[hidden] { display: none; }
+
+/* La sección entrante se anima, pero nunca bloquea la interacción */
+.view--enter { animation: view-enter var(--animation-duration) ease-out both; }
+
+@keyframes view-enter {
+  from { opacity: 0; transform: translateY(14px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.section-block { margin-top: clamp(2rem, 5vw, 3.25rem); }
+.section-lead  { color: var(--color-text-soft); }
+
+/* ---------- 5. Botones (apariencia consistente: RF-056, RNF-008) ---------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  padding: 0.7rem 1.4rem;
+  border: 2px solid var(--color-purple-700);
+  border-radius: 999px;
+  background: var(--color-purple-700);
+  color: var(--color-white);
+  font: inherit;
+  font-weight: 600;
+  line-height: 1.2;
+  text-decoration: none;
+  cursor: pointer;
+  transition: transform var(--transition-duration) ease,
+              background-color var(--transition-duration) ease,
+              box-shadow var(--transition-duration) ease,
+              color var(--transition-duration) ease;
+}
+.btn:hover {
+  background: var(--color-purple-900);
+  border-color: var(--color-purple-900);
+  color: var(--color-white);
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+}
+.btn:active { transform: translateY(0); }
+
+.btn--outline { background: var(--color-white); color: var(--color-purple-700); }
+.btn--outline:hover { background: var(--color-purple-100); color: var(--color-purple-900); }
+
+.btn--disabled,
+.btn--disabled:hover {
+  background: var(--color-purple-50);
+  border-style: dashed;
+  border-color: var(--color-purple-700);
+  color: var(--color-text-soft);
+  cursor: not-allowed;
+  transform: none;
+  box-shadow: none;
+}
+
+.button-row { display: flex; flex-wrap: wrap; gap: 0.75rem; margin-top: 1.5rem; }
+
+/* ---------- 6. Sección Información ---------- */
+.hero {
+  padding: clamp(1.75rem, 5vw, 3rem);
+  background: var(--color-purple-100);
+  border-left: 8px solid var(--color-purple-700);
+  border-radius: var(--radius);
+}
+.hero__eyebrow {
+  margin-bottom: 0.4rem;
+  color: var(--color-purple-700);
+  font-size: 0.9rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+.hero__greeting { margin-bottom: 0.1rem; font-size: 1.25rem; color: var(--color-text-soft); }
+.hero__name { color: var(--color-purple-900); }
+.hero__description { max-width: 65ch; margin-bottom: 0; font-size: 1.1rem; }
+
+.info-grid { display: grid; gap: 1.25rem; }
+.info-grid--2 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr)); }
+.info-grid--4 { grid-template-columns: repeat(auto-fit, minmax(min(100%, 235px), 1fr)); }
+
+.card-box {
+  padding: 1.5rem;
+  background: var(--color-white);
+  border: 2px solid var(--color-purple-200);
+  border-radius: var(--radius);
+}
+.card-box__title { color: var(--color-purple-700); }
+
+.data-list { display: grid; gap: 0.9rem; margin: 0; }
+.data-list__term { font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-purple-700); }
+.data-list__value { margin: 0; font-weight: 600; }
+
+.chip-list { display: flex; flex-wrap: wrap; gap: 0.6rem; }
+.chip {
+  padding: 0.3rem 0.85rem;
+  border-radius: 999px;
+  background: var(--color-purple-100);
+  border: 1px solid var(--color-purple-200);
+  color: var(--color-purple-900);
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+/* Lista de habilidades (RF-016) */
+.skill-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 230px), 1fr)); gap: 0.75rem; }
+.skill-list__item {
+  position: relative;
+  padding: 0.8rem 1rem 0.8rem 2.6rem;
+  background: var(--color-purple-50);
+  border: 1px solid var(--color-purple-200);
+  border-radius: 10px;
+  font-weight: 600;
+}
+.skill-list__item::before {
+  content: "✓";
+  position: absolute;
+  left: 0.9rem;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--color-purple-700);
+  font-weight: 800;
+}
+
+.tech-category__description { color: var(--color-text-soft); font-size: 0.97rem; }
+
+/* ---------- 7. Sección Proyectos ---------- */
+.card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 290px), 1fr)); gap: 1.5rem; }
+
+.project-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: var(--color-white);
+  border: 2px solid var(--color-purple-200);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease, border-color var(--transition-duration) ease;
+}
+.project-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); border-color: var(--color-purple-700); }
+
+.project-card__media { position: relative; }
+.project-card__tag   { position: absolute; top: 0.75rem; left: 0.75rem; }
+.project-card__body  { display: flex; flex: 1; flex-direction: column; gap: 0.5rem; padding: 1.25rem; }
+.project-card__title { margin: 0; color: var(--color-purple-900); }
+.project-card__summary { flex: 1; margin: 0 0 0.5rem; color: var(--color-text-soft); font-size: 0.98rem; }
+/* La tarjeta completa es clicable a través del botón */
+.project-card__link::after { content: ""; position: absolute; inset: 0; }
+
+/* Imágenes sin deformación (RNF-010) */
+.media { background: var(--color-purple-100); }
+.media img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; }
+.media__error {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 9rem;
+  margin: 0;
+  padding: 1rem;
+  aspect-ratio: 16 / 9;
+  background: var(--color-purple-50);
+  border: 2px dashed var(--color-purple-700);
+  color: var(--color-black);
+  font-size: 0.95rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Etiquetas de estado (RF-042) */
+.tag {
+  display: inline-block;
+  padding: 0.2rem 0.75rem;
+  border-radius: 999px;
+  border: 2px solid var(--color-purple-700);
+  font-size: 0.82rem;
+  font-weight: 700;
+  line-height: 1.4;
+}
+.tag--finalizado    { background: var(--color-purple-700); color: var(--color-white); }
+.tag--en-desarrollo { background: var(--color-white); color: var(--color-purple-700); }
+.tag--en-pausa      { background: var(--color-black); border-color: var(--color-black); color: var(--color-white); }
+
+/* Detalle de proyecto (RF-036 a RF-041, RF-044) */
+.detail__header { display: flex; flex-wrap: wrap; align-items: center; gap: 0.75rem 1rem; margin: 1.25rem 0 1rem; }
+.detail__header h2 { margin: 0; }
+.detail__cover { max-width: 820px; overflow: hidden; border-radius: var(--radius); border: 2px solid var(--color-purple-200); }
+.detail__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 320px), 1fr)); gap: 1.5rem; align-items: start; margin-top: 1.5rem; }
+.detail__links { display: flex; flex-wrap: wrap; gap: 0.75rem; }
+.detail__gallery { margin-top: 2rem; }
+.gallery-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 260px), 1fr)); gap: 1rem; }
+.gallery-grid .media { overflow: hidden; border-radius: 10px; border: 2px solid var(--color-purple-200); }
+
+/* ---------- 8. Sección Contacto ---------- */
+.notice {
+  padding: 1.25rem 1.5rem;
+  background: var(--color-purple-100);
+  border-left: 8px solid var(--color-purple-700);
+  border-radius: var(--radius);
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+.contact-list { display: grid; gap: 1rem; margin-top: 1.5rem; }
+.contact-item {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  background: var(--color-white);
+  border: 2px solid var(--color-purple-200);
+  border-radius: var(--radius);
+  transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+}
+.contact-item:hover { border-color: var(--color-purple-700); box-shadow: var(--shadow); }
+.contact-item__icon {
+  display: grid;
+  place-items: center;
+  flex: none;
+  width: 2.75rem;
+  height: 2.75rem;
+  border-radius: 50%;
+  background: var(--color-purple-700);
+  color: var(--color-white);
+  font-weight: 800;
+}
+.contact-item__label { margin: 0; font-size: 0.85rem; font-weight: 700; letter-spacing: 0.05em; text-transform: uppercase; color: var(--color-text-soft); }
+.contact-item__value { margin: 0; font-weight: 600; word-break: break-word; }
+
+.view-footer-action { margin-top: clamp(2rem, 5vw, 3rem); }
+
+/* ---------- 9. Pie de página (RF-057 a RF-060) ---------- */
+.site-footer { margin-top: 2rem; padding: 2.5rem 0 1.5rem; background: var(--color-purple-900); color: var(--color-white); }
+.site-footer a { color: var(--color-white); }
+.site-footer a:hover { color: var(--color-purple-200); }
+.site-footer :focus-visible { outline-color: var(--color-white); }
+.site-footer__grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.75rem; }
+.site-footer__name { margin-bottom: 0.4rem; font-size: 1.25rem; }
+.site-footer__title { margin-bottom: 0.6rem; font-size: 0.9rem; letter-spacing: 0.08em; text-transform: uppercase; color: var(--color-purple-200); }
+.site-footer__list { display: grid; gap: 0.4rem; }
+.site-footer__copy { margin: 2rem 0 0; padding-top: 1rem; border-top: 1px solid rgba(255, 255, 255, 0.25); font-size: 0.9rem; color: var(--color-purple-200); }
+
+/* ---------- 10. Botón volver arriba (RF-053) ---------- */
+.back-to-top {
+  position: fixed;
+  right: 1.25rem;
+  bottom: 1.25rem;
+  z-index: 60;
+  display: grid;
+  place-items: center;
+  width: 3rem;
+  height: 3rem;
+  border: 2px solid var(--color-white);
+  border-radius: 50%;
+  background: var(--color-purple-700);
+  color: var(--color-white);
+  font-size: 1.4rem;
+  line-height: 1;
+  cursor: pointer;
+  box-shadow: var(--shadow);
+  transition: transform var(--transition-duration) ease, background-color var(--transition-duration) ease;
+}
+.back-to-top:hover { background: var(--color-purple-900); transform: translateY(-3px); }
+
+/* ---------- 11. Mensajes de error y estados vacíos (RNF-023) ---------- */
+.message-box {
+  padding: 1.25rem 1.5rem;
+  background: var(--color-purple-50);
+  border: 2px dashed var(--color-purple-700);
+  border-radius: var(--radius);
+  font-weight: 600;
+}
+.noscript-message { margin: 0; padding: 1rem; background: var(--color-black); color: var(--color-white); text-align: center; }
+
+/* ---------- 12. Diseño adaptable (RNF-001) ---------- */
+@media (max-width: 560px) {
+  .site-header__inner { justify-content: center; text-align: center; }
+  .main-nav__link { padding: 0.45rem 0.85rem; }
+  .btn { width: 100%; }
+  .button-row .btn, .detail__links .btn { width: 100%; }
+  .contact-item { align-items: flex-start; }
+}
+
+/* Respeta la preferencia de reducir movimiento (RNF-021) */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}

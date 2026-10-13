@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Portafolio web personal: información, proyectos y contacto.">
+  <title>Portafolio personal</title>
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+<body>
+
+  <!-- Menú de navegación principal (se genera desde js/data.js) -->
+  <header id="site-header" class="site-header"></header>
+
+  <!-- Las tres secciones principales del portafolio -->
+  <main id="main-content" class="site-main">
+    <section id="view-informacion" class="view" data-section="informacion" tabindex="-1" hidden></section>
+    <section id="view-proyectos"   class="view" data-section="proyectos"   tabindex="-1" hidden>
+      <div class="container">
+        <div id="projects-list"></div>
+        <div id="projects-detail" hidden></div>
+      </div>
+    </section>
+    <section id="view-contacto"    class="view" data-section="contacto"    tabindex="-1" hidden></section>
+  </main>
+
+  <!-- Pie de página -->
+  <footer id="site-footer" class="site-footer"></footer>
+
+  <!-- Botón para regresar al inicio de la página -->
+  <button id="back-to-top" class="back-to-top" type="button" aria-label="Regresar al inicio de la página">
+    <span aria-hidden="true">↑</span>
+  </button>
+
+  <noscript>
+    <p class="noscript-message">Para ver este portafolio necesitas habilitar JavaScript en tu navegador.</p>
+  </noscript>
+
+  <script src="js/data.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
