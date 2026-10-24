@@ -13,10 +13,10 @@ window.PORTFOLIO_DATA = {
 
   /* ---------- Datos personales (RF-011, RF-012, RF-021) ---------- */
   owner: {
-    fullName: 'Nombre Apellido Apellido',
+    fullName: 'Victor Ortiz Quinatana',
     greeting: 'Hola, soy',
     description:
-      'Soy estudiante apasionado por el desarrollo de software. Me gusta transformar ' +
+      'Soy estudiante de la ingeniería de software. Me gusta transformar ' +
       'ideas en aplicaciones útiles, aprender nuevas tecnologías y trabajar en equipo ' +
       'para construir soluciones claras y bien organizadas.'
   },
@@ -31,8 +31,8 @@ window.PORTFOLIO_DATA = {
 
   /* ---------- Formación académica (RF-013, RF-014) ---------- */
   education: {
-    career: 'Ingeniería en Sistemas Computacionales',
-    institution: 'Nombre de la institución educativa'
+    career: 'Ingeniería de Software',
+    institution: 'Universidad Autónoma del Estado de México'
   },
 
   /* ---------- Currículum (RF-022) ----------
@@ -62,12 +62,12 @@ window.PORTFOLIO_DATA = {
     {
       category: 'Bases de datos',
       description: 'Sistemas que utilizo para almacenar, consultar y administrar información.',
-      items: ['MySQL', 'PostgreSQL', 'MongoDB']
+      items: ['MySQL', 'PostgreSQL']
     },
     {
       category: 'Herramientas',
       description: 'Herramientas de apoyo para el control de versiones, la edición y la colaboración.',
-      items: ['Git', 'GitHub', 'Visual Studio Code', 'Postman']
+      items: ['Git', 'GitHub', 'Visual Studio Code']
     },
     {
       category: 'Diseño',
@@ -199,21 +199,20 @@ window.PORTFOLIO_DATA = {
       'Estoy disponible para recibir consultas, propuestas de colaboración y oportunidades ' +
       'profesionales. ¡Escríbeme y con gusto te respondo!',
     email: {
-      address: 'correo@ejemplo.com',
+      address: 'vortizq001@alumno.uaemex.mx',
       inFooter: true
     },
     /* Medio de contacto profesional (RF-051). Pon `null` si no deseas mostrarlo. */
     professional: {
       label: 'Contacto profesional',
-      value: '+52 55 0000 0000',
+      value: '+52 722 292 9293',
       href: 'tel:+525500000000',
       inFooter: false
     },
     /* Redes sociales (RF-048, RF-049, RF-050, RNF-017) */
     social: [
-      { network: 'GitHub',    username: '@usuario', url: 'https://github.com/usuario',            inFooter: true },
-      { network: 'LinkedIn',  username: '@usuario', url: 'https://www.linkedin.com/in/usuario',   inFooter: true },
-      { network: 'Instagram', username: '@usuario', url: 'https://www.instagram.com/usuario',     inFooter: false }
+      { network: 'GitHub',    username: '@victorquintana666', url: 'https://github.com/victorquintana666',            inFooter: true }
+
     ]
   },
 
